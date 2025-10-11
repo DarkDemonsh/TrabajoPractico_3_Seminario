@@ -14,13 +14,13 @@ public class Fichas {
     String Motivo_Consulta;
     boolean Consulta;
     String Observacion;
-    String Estado;
+    int Estado;
     LocalDateTime date;
 
     public Fichas() {
     }
 
-    public Fichas(int Ficha_ID, String Profesional, String Paciente, long DNI_Paciente, String Localidad, boolean Cobertura, String Diagnostico, String Motivo_Consulta, boolean Consulta, String Observacion, String Estado, LocalDateTime date) {
+    public Fichas(int Ficha_ID, String Profesional, String Paciente, long DNI_Paciente, String Localidad, boolean Cobertura, String Diagnostico, String Motivo_Consulta, boolean Consulta, String Observacion, int Estado, LocalDateTime date) {
         this.Ficha_ID = Ficha_ID;
         this.Profesional = Profesional;
         this.Paciente = Paciente;
@@ -115,11 +115,11 @@ public class Fichas {
         this.Observacion = Observacion;
     }
 
-    public String getEstado() {
+    public int getEstado() {
         return Estado;
     }
 
-    public void setEstado(String Estado) {
+    public void setEstado(int Estado) {
         this.Estado = Estado;
     }
 
