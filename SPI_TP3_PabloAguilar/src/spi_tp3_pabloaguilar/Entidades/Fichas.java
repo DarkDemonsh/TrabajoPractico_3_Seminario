@@ -1,7 +1,10 @@
 package spi_tp3_pabloaguilar.Entidades;
 
+import java.time.LocalDateTime;
+
 public class Fichas {
     
+    int Ficha_ID;
     String Profesional;
     String Paciente;
     long DNI_Paciente;
@@ -11,12 +14,14 @@ public class Fichas {
     String Motivo_Consulta;
     boolean Consulta;
     String Observacion;
-    boolean Estado;
+    String Estado;
+    LocalDateTime date;
 
     public Fichas() {
     }
 
-    public Fichas(String Profesional, String Paciente, long DNI_Paciente, String Localidad, boolean Cobertura, String Diagnostico, String Motivo_Consulta, boolean Consulta, String Observacion, boolean Estado) {
+    public Fichas(int Ficha_ID, String Profesional, String Paciente, long DNI_Paciente, String Localidad, boolean Cobertura, String Diagnostico, String Motivo_Consulta, boolean Consulta, String Observacion, String Estado, LocalDateTime date) {
+        this.Ficha_ID = Ficha_ID;
         this.Profesional = Profesional;
         this.Paciente = Paciente;
         this.DNI_Paciente = DNI_Paciente;
@@ -27,10 +32,19 @@ public class Fichas {
         this.Consulta = Consulta;
         this.Observacion = Observacion;
         this.Estado = Estado;
+        this.date = date;
     }
 
     public String getProfesional() {
         return Profesional;
+    }
+
+    public int getFicha_ID() {
+        return Ficha_ID;
+    }
+
+    public void setFicha_ID(int Ficha_ID) {
+        this.Ficha_ID = Ficha_ID;
     }
 
     public void setProfesional(String Profesional) {
@@ -101,12 +115,20 @@ public class Fichas {
         this.Observacion = Observacion;
     }
 
-    public boolean isEstado() {
+    public String getEstado() {
         return Estado;
     }
 
-    public void setEstado(boolean Estado) {
+    public void setEstado(String Estado) {
         this.Estado = Estado;
     }
-     
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
 }
