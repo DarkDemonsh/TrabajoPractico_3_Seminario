@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import static java.util.Collections.list;
+import java.util.List;
 import java.util.Scanner;
 import spi_tp3_pabloaguilar.Conector_JBDC;
 import spi_tp3_pabloaguilar.Entidades.Controlador_DB;
@@ -149,6 +152,47 @@ public void Borrar_Ficha(int Ficha_ID) {
         
     } catch (Exception ex) {
         System.out.println("Error 004: " + ex.getMessage());
+    }
+}
+public void Listar_Ficha(int Menor, int Mayor) {
+    try {
+        String sql = "SELECT * FROM ficha WHERE Ficha_ID BETWEEN ? AND ?";
+        PreparedStatement ps = conn.prepareStatement(sql);  
+        ps.setInt(1, Menor);
+        ps.setInt(2, Mayor);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        System.out.println("Lista de Fichas");
+        List<String> show = new ArrayList();
+        System.out.println("");
+        
+        while(rs.next()){
+            int id = rs.getInt("Ficha_ID");
+            String pro = rs.getString("Profesional");
+            String per = rs.getString("Nombre_Paciente");
+            long dni = rs.getLong("DNI_Paciente");
+            boolean cob = rs.getBoolean("Cobertura");
+            String diag = rs.getString("Diagnostico");
+            String mcons = rs.getString("Motivo_Consulta");
+            boolean cons = rs.getBoolean("Consulta");
+            String obs = rs.getString("Observacion");
+            boolean est = rs.getBoolean("Estado");
+            LocalDateTime date = rs.getTimestamp("Fecha_Consulta").toLocalDateTime();
+            
+            show.add("ID: "+id+", Profesional a cargo: "+pro+", Paciente: "+per+", DNI: "+dni+", Cobertura: "+cob+", Diagnostico: "+diag+", Estado de Consulta: "+cons+", Motivo de Consulta: "+mcons+", Observaciones: "+obs+", Estado: "+est+", Fecha de la Consulta: "+date);
+        }
+        
+        for (String s : show) {
+            System.out.println(s);
+            System.out.println("");
+        }
+        
+        rs.close();
+        ps.close();
+
+    } catch (Exception ex) {
+        System.out.println("Error 003: " + ex.getMessage());
     }
 }
 }

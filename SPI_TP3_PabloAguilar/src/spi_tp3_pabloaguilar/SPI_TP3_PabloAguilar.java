@@ -25,6 +25,7 @@ do{
     System.out.println("");
     System.out.println("1- Agregar Ficha");
     System.out.println("2- Borrar Ficha");
+    System.out.println("3- Mostrar Fichas");
     System.out.println("0- Salir");
     System.out.println("");
     
@@ -39,6 +40,12 @@ do{
             int b = leer.nextInt();
             fs.Borrar_Ficha(b);
             break;
+        case 3:
+            System.out.println("Elegir entre que Fichas Buscar");
+            int r1 = leer.nextInt();
+            int r2 = leer.nextInt();
+            System.out.println("");
+            fs.Listar_Ficha(r1, r2);
         case 0:
              exit = 0;
              break;
