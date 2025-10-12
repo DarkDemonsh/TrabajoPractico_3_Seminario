@@ -6,11 +6,9 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import static java.util.Collections.list;
 import java.util.List;
 import java.util.Scanner;
 import spi_tp3_pabloaguilar.Conector_JBDC;
-import spi_tp3_pabloaguilar.Entidades.Controlador_DB;
 import spi_tp3_pabloaguilar.Entidades.Estadistica;
 import spi_tp3_pabloaguilar.Entidades.Fichas;
 
@@ -18,15 +16,17 @@ public class Ficha_S {
     
     Fichas f = new Fichas();
     Estadistica e = new Estadistica();
-    Controlador_DB c = new Controlador_DB();
+    Profesional p = new Profesional();
+    
     Connection conn = Conector_JBDC.conectar();
+    
     String respuesta;
     int falseid = 0;
     int afid = 0;
     boolean exit = true;
     LocalDateTime hoy = LocalDateTime.now();
 
-public void Agregar_Ficha(Fichas f, Estadistica e, Controlador_DB c){
+public void Agregar_Ficha(Fichas f, Estadistica e, Profesional p){
 
     Scanner leer = new Scanner(System.in);
  try{   
@@ -40,6 +40,25 @@ public void Agregar_Ficha(Fichas f, Estadistica e, Controlador_DB c){
      
     System.out.println("Escribir el nombre del Profesional");
     f.setProfesional(leer.nextLine());
+    
+    if(Prof_name(f.getProfesional()) == false){
+    if(Prof_cupo(f.getProfesional())== true){
+    p.setNombre_profesional(f.getProfesional());
+    p.setCupos_Disponibles(p.getCupos_Disponibles()-1);
+    }else{
+        System.out.println("El profesional no tiene cupos disponibles");
+    }
+    
+    String sql2 = ("INSERT INTO profesional (Nombre_Profesional, Cupos_Disponibles) VALUES (?, 6)");
+    PreparedStatement ps2 = conn.prepareStatement(sql2);
+    ps2.setString(1, p.getNombre_profesional());
+        
+    ps2.executeUpdate();
+    ps2.close();
+    
+    }else{
+        Update_Prof(f.getProfesional());
+    }
     
     System.out.println("Escribir el nombre del Paciente");
     f.setPaciente(leer.nextLine());
@@ -108,7 +127,7 @@ try{
         
         ps.executeUpdate();
         ps.close();
-        
+                
 }catch(Exception ex){
     System.out.println("Error 002 " + ex.getMessage());
 }
@@ -141,7 +160,13 @@ public void Borrar_Ficha(int Ficha_ID) {
         String sql = "DELETE FROM ficha WHERE Ficha_ID = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(1, Ficha_ID);
+        
+        String sql2 = "UPDATE profesional SET cupos_disponibles = cupos_disponibles + 1 WHERE nombre_profesional IN = (SELECT nombre_profesional FROM ficha WHERE Ficha_ID = ?)";
+        PreparedStatement ps2 = conn.prepareStatement(sql2);
+        ps.setInt(1, Ficha_ID);
 
+        ps2.executeUpdate();
+        
         int i = ps.executeUpdate();
         
         if(i>0){
@@ -154,13 +179,25 @@ public void Borrar_Ficha(int Ficha_ID) {
         System.out.println("Error 004: " + ex.getMessage());
     }
 }
+
 public void Listar_Ficha(int Menor, int Mayor) {
     try {
-        String sql = "SELECT * FROM ficha WHERE Ficha_ID BETWEEN ? AND ?";
-        PreparedStatement ps = conn.prepareStatement(sql);  
-        ps.setInt(1, Menor);
-        ps.setInt(2, Mayor);
         
+        String sql = "SELECT * FROM ficha WHERE Ficha_ID BETWEEN "+Menor+" AND "+Mayor;
+        
+        llamar(sql);
+
+    } catch (Exception ex) {
+        System.out.println("Error 003: " + ex.getMessage());
+    }
+}
+
+public void llamar(String i){
+    try{
+        String sql = "";
+        sql = i;
+
+        PreparedStatement ps = conn.prepareStatement(sql); 
         ResultSet rs = ps.executeQuery();
         
         System.out.println("Lista de Fichas");
@@ -192,7 +229,84 @@ public void Listar_Ficha(int Menor, int Mayor) {
         ps.close();
 
     } catch (Exception ex) {
-        System.out.println("Error 003: " + ex.getMessage());
+        System.out.println("Error 004: " + ex.getMessage());
     }
 }
+
+public boolean Buscar_Prof(String n) {
+    try {
+        String sql = n;
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ResultSet rs = ps.executeQuery();
+
+        boolean existe = rs.next();
+
+        rs.close();
+        ps.close();
+
+        return existe;
+
+    } catch (Exception ex) {
+        System.out.println("Error 010: " + ex.getMessage());
+        return false;
+    }
+}
+
+public void Update_Prof(String n) {
+    try {
+        String sql = "UPDATE profesional SET cupos_disponibles = cupos_disponibles - 1 WHERE nombre_profesional = '"+n+"'";
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ps.executeUpdate();
+
+        ps.close();
+
+    } catch (Exception ex) {
+        System.out.println("Error 011: " + ex.getMessage());
+    }
+}
+
+public boolean Prof_name(String n){
+    try{
+    String sql = "SELECT nombre_profesional FROM profesional WHERE nombre_profesional = '"+n+"'";
+    
+    if(Buscar_Prof(sql) == true){
+        return true;
+    }else{
+        return false;
+    }
+    
+    }catch(Exception ex){
+        System.out.println("Error 012: "+ex.getMessage());
+        return false;
+    }       
+}
+
+public boolean Prof_cupo(String n) {
+    try {
+        String sql = "SELECT cupos_disponibles FROM profesional WHERE nombre_profesional = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, n);
+
+        ResultSet rs = ps.executeQuery();
+
+        if(rs.next()) {
+            int i = rs.getInt("cupos_disponibles");
+            rs.close();
+            ps.close();
+
+            return i > 0;
+        } else {
+            rs.close();
+            ps.close();
+            return true;
+        }
+
+    } catch (Exception ex) {
+        System.out.println("Error 013: " + ex.getMessage());
+        return false;
+    }
+}
+
 }
