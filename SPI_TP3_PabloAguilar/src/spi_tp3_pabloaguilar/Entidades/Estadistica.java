@@ -9,7 +9,6 @@ public class Estadistica {
     String Pacientes_con_cobertura;
     String Pacientes_sin_cobertura;
     int cupos_disponibles;
-    List<String> resultado;
     int Estadistica_ID;
     LocalDate hoy = LocalDate.now();
     LocalDate dia = hoy;
@@ -17,12 +16,11 @@ public class Estadistica {
     public Estadistica() {
     }
 
-    public Estadistica(int Pacientes_Atendidos, String Pacientes_con_cobertura, String Pacientes_sin_cobertura, int cupos_disponibles, List<String> resultado, int Estadistica_ID, LocalDate dia) {
+    public Estadistica(int Pacientes_Atendidos, String Pacientes_con_cobertura, String Pacientes_sin_cobertura, int cupos_disponibles, int Estadistica_ID, LocalDate dia) {
         this.Pacientes_Atendidos = Pacientes_Atendidos;
         this.Pacientes_con_cobertura = Pacientes_con_cobertura;
         this.Pacientes_sin_cobertura = Pacientes_sin_cobertura;
         this.cupos_disponibles = cupos_disponibles;
-        this.resultado = resultado;
         this.Estadistica_ID = Estadistica_ID;
         this.dia = hoy;
     }
@@ -57,14 +55,6 @@ public class Estadistica {
 
     public void setCupos_disponibles(int cupos_disponibles) {
         this.cupos_disponibles = cupos_disponibles;
-    }
-
-    public List<String> getResultado() {
-        return resultado;
-    }
-
-    public void setResultado(List<String> resultado) {
-        this.resultado = resultado;
     }
 
     public int getEstadistica_ID() {

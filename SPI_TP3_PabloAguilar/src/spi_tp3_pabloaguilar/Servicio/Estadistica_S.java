@@ -6,9 +6,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -152,7 +150,7 @@ public class Estadistica_S {
         
  
         show.add("ID_Estadistica: "+e.getEstadistica_ID()+", Profesional:  "+pro+", Cupos Disponibles: "+per+", Total de Paceintes Atendidos: "+cant+", Pacientes con cobertura: "+si+", Paceintes sin cobertura: "+no+", Fecha de la Estadistica: "+e.getDia());
-        e.setResultado(show);
+        
         }
     
         String sql5 = "SELECT SUM(Cupos_Disponibles) AS Cupo FROM profesional";
