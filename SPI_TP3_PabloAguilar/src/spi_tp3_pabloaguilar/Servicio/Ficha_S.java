@@ -1,5 +1,6 @@
 package spi_tp3_pabloaguilar.Servicio;
 
+import spi_tp3_pabloaguilar.Entidades.Profesional;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

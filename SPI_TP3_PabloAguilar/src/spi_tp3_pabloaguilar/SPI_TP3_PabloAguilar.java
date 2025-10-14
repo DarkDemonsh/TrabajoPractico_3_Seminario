@@ -7,7 +7,7 @@ import spi_tp3_pabloaguilar.Entidades.Estadistica;
 import spi_tp3_pabloaguilar.Entidades.Fichas;
 import spi_tp3_pabloaguilar.Servicio.Estadistica_S;
 import spi_tp3_pabloaguilar.Servicio.Ficha_S;
-import spi_tp3_pabloaguilar.Servicio.Profesional;
+import spi_tp3_pabloaguilar.Entidades.Profesional;
 
 public class SPI_TP3_PabloAguilar {
 

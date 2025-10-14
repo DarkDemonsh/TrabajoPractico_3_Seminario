@@ -1,4 +1,4 @@
-package spi_tp3_pabloaguilar.Servicio;
+package spi_tp3_pabloaguilar.Entidades;
 
 public class Profesional {
   
