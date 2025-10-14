@@ -22,8 +22,8 @@ public class Ficha_S {
     Connection conn = Conector_JBDC.conectar();
     
     String respuesta;
-    int falseid = 0;
-    int afid = 0;
+    int falseid = 1;
+    int afid = 1;
     boolean exit = true;
     LocalDateTime hoy = LocalDateTime.now();
 
@@ -162,9 +162,9 @@ public void Borrar_Ficha(int Ficha_ID) {
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(1, Ficha_ID);
         
-        String sql2 = "UPDATE profesional SET cupos_disponibles = cupos_disponibles + 1 WHERE nombre_profesional IN = (SELECT nombre_profesional FROM ficha WHERE Ficha_ID = ?)";
+        String sql2 = "UPDATE profesional SET cupos_disponibles = cupos_disponibles + 1 WHERE nombre_profesional IN (SELECT nombre_profesional FROM ficha WHERE Ficha_ID = ?)";
         PreparedStatement ps2 = conn.prepareStatement(sql2);
-        ps.setInt(1, Ficha_ID);
+        ps2.setInt(1, Ficha_ID);
 
         ps2.executeUpdate();
         

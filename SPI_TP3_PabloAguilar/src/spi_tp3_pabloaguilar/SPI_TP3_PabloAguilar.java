@@ -2,7 +2,6 @@ package spi_tp3_pabloaguilar;
 
 import java.time.LocalDate;
 import java.util.Scanner;
-import spi_tp3_pabloaguilar.Entidades.Controlador_DB;
 import spi_tp3_pabloaguilar.Entidades.Estadistica;
 import spi_tp3_pabloaguilar.Entidades.Fichas;
 import spi_tp3_pabloaguilar.Servicio.Estadistica_S;
@@ -17,7 +16,6 @@ public class SPI_TP3_PabloAguilar {
     Fichas f = new Fichas();
     Estadistica e = new Estadistica();
     Profesional p = new Profesional();
-    Controlador_DB c = new Controlador_DB();
     
     Scanner leer = new Scanner(System.in);
     int exit = 1;
@@ -36,6 +34,8 @@ do{
     System.out.println("3- Mostrar Fichas");
     System.out.println("4- Listar Fichas por Fechas");
     System.out.println("5- Buscar por Cobertura");
+    System.out.println("6- Cupos disponibles del profesional");
+    System.out.println("7- Resultado Estadistica");
     System.out.println("0- Salir");
     System.out.println("");
     
@@ -101,6 +101,9 @@ do{
             ld0 = leer.nextLine();
             
             es.Cupos_Disponibles(ld0);
+            break;
+        case 7:
+            es.Resultado_Estadistica();
             break;
         case 0:
              exit = 0;

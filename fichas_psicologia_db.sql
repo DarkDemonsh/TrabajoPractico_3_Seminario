@@ -23,14 +23,12 @@ CREATE TABLE Estadistica (
     FOREIGN KEY (Ficha_ID) REFERENCES Ficha(Ficha_ID),
     Fecha_Estadistica DATETIME
 );
-CREATE TABLE Controlador_DB (
-    Resultado_ID INT PRIMARY KEY,
-    ID_Ficha INT,
-    ID_Estadistica INT,
-    Fecha_Resultado DATETIME,
-    FOREIGN KEY (ID_Ficha) REFERENCES Ficha(Ficha_ID),
-    FOREIGN KEY (ID_Estadistica) REFERENCES Estadistica(Estadistica_ID)
+
+CREATE TABLE profesional(
+	Nombre_Profesional VARCHAR(255),
+    Cupos_Disponibles INT
 );
+
 INSERT INTO Ficha 
 (Ficha_ID, DNI_Paciente, Localidad, Cobertura, Diagnostico, Motivo_Consulta, 
  Nombre_Paciente, Profesional, Consulta, Observacion, Estado, Fecha_Consulta) 
@@ -70,12 +68,7 @@ VALUES
 (2, 18, '15', '3', 7, '2025-09-08 08:00:00'),
 (3, 30, '27', '3', 5, '2025-09-15 08:00:00');
 
-INSERT INTO Controlador_DB 
-(Resultado_ID, ID_Ficha, ID_Estadistica, Fecha_Resultado)
-VALUES
-(1, 1, 1, '2025-09-01 10:30:00'),
-(2, 2, 2, '2025-09-08 16:15:00'),
-(3, 3, 3, '2025-09-15 11:00:00');
+INSERT INTO profesional (Nombre_Profesional, Cupos_Disponibles) VALUES ('Lic.Romero', 6), ('Lic.Fernandez',5);
 
 SELECT Ficha_ID, Nombre_Paciente, Diagnostico, Fecha_Consulta
 FROM Ficha
@@ -92,4 +85,4 @@ SELECT
     SUM(Cupos_Disponibles) AS Cupos_Disponibles
 FROM Estadistica;
 
-
+SELECT COUNT(*) AS SI FROM ficha WHERE cobertura = '1' AND Profesional = 'lic.vir'
