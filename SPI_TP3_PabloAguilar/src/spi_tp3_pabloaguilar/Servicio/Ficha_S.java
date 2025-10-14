@@ -1,5 +1,7 @@
 package spi_tp3_pabloaguilar.Servicio;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import spi_tp3_pabloaguilar.Entidades.Profesional;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import org.json.JSONObject;
 import spi_tp3_pabloaguilar.Conector_JBDC;
 import spi_tp3_pabloaguilar.Entidades.Estadistica;
 import spi_tp3_pabloaguilar.Entidades.Fichas;
@@ -128,7 +131,8 @@ try{
         
         ps.executeUpdate();
         ps.close();
-                
+        Guardado_Local(f);
+        
 }catch(Exception ex){
     System.out.println("Error 002 " + ex.getMessage());
 }
@@ -309,5 +313,28 @@ public boolean Prof_cupo(String n) {
         return false;
     }
 }
+
+public void Guardado_Local(Fichas f){
+            JSONObject j = new JSONObject();
+            
+            j.put("Ficha_Id", f.getFicha_ID());
+            j.put("Profesional",f.getProfesional());
+            j.put("Nombre_Paciente",f.getPaciente());
+            j.put("DNI_Paciente",f.getDNI_Paciente());
+            j.put("Localidad_Paciente",f.getLocalidad());
+            j.put("Diagnostico",f.getDiagnostico());
+            j.put("Motivo_Consulta",f.getMotivo_Consulta());
+            j.put("Estado",f.getEstado());
+            j.put("Observaciones",f.getObservacion());
+            j.put("Tiene_Cobertura",f.isCobertura());
+            j.put("Sigue_con_Consulta",f.isConsulta());
+            j.put("Fecha_De_Consulta",f.getDate());
+            
+        try(FileWriter file = new FileWriter(e.getDia()+"_"+f.getFicha_ID()+"_Ficha.json")){
+               file.write(j.toString());
+        }catch(IOException ex){
+            System.out.println("Error en al guardar el JSON");
+        }
+    }
 
 }
