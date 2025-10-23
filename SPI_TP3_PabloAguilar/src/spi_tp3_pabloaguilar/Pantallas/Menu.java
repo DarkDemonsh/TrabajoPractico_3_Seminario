@@ -28,7 +28,7 @@ public class Menu extends javax.swing.JFrame {
         Cargar_Estadistica = new javax.swing.JButton();
         Buscar_Cobertura = new javax.swing.JButton();
         Cupos_Profesional = new javax.swing.JButton();
-        Listar_Por_Fecha = new javax.swing.JButton();
+        CG_Estadistica = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -48,6 +48,11 @@ public class Menu extends javax.swing.JFrame {
         });
 
         Borrar_Ficha.setText("Borrar Ficha");
+        Borrar_Ficha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Borrar_FichaActionPerformed(evt);
+            }
+        });
 
         Cargar_Estadistica.setText("Cargar Estadistica");
         Cargar_Estadistica.addActionListener(new java.awt.event.ActionListener() {
@@ -57,6 +62,11 @@ public class Menu extends javax.swing.JFrame {
         });
 
         Buscar_Cobertura.setText("Buscar por Cobertura");
+        Buscar_Cobertura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Buscar_CoberturaActionPerformed(evt);
+            }
+        });
 
         Cupos_Profesional.setText("Consultar Cupos de Profesional");
         Cupos_Profesional.addActionListener(new java.awt.event.ActionListener() {
@@ -65,7 +75,12 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        Listar_Por_Fecha.setText("Crear Estadistica");
+        CG_Estadistica.setText("Crear y Guardar Estadistica");
+        CG_Estadistica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CG_EstadisticaActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -79,19 +94,15 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(Crear_Ficha2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Borrar_Ficha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Cargar_Ficha, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Buscar_Cobertura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Cargar_Estadistica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Listar_Por_Fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Cupos_Profesional)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Cargar_Estadistica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(CG_Estadistica, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(Buscar_Cobertura, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(Cupos_Profesional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,28 +117,35 @@ public class Menu extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addComponent(Cargar_Ficha)
                         .addGap(37, 37, 37)
-                        .addComponent(Borrar_Ficha))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(Listar_Por_Fecha)
-                        .addGap(18, 18, 18)
-                        .addComponent(Cargar_Estadistica)
-                        .addGap(30, 30, 30)
-                        .addComponent(Buscar_Cobertura)
-                        .addGap(26, 26, 26)
-                        .addComponent(Cupos_Profesional)))
+                        .addComponent(Borrar_Ficha)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(CG_Estadistica)
+                .addGap(18, 18, 18)
+                .addComponent(Cargar_Estadistica)
+                .addGap(26, 26, 26)
+                .addComponent(Buscar_Cobertura)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Cupos_Profesional)
+                .addGap(28, 28, 28))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void Cupos_ProfesionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cupos_ProfesionalActionPerformed
-        // TODO add your handling code here:
+        Cupos_Profesionales pc = new Cupos_Profesionales();
+        
+        pc.setVisible(true);
+        pc.setLocationRelativeTo(null);  
     }//GEN-LAST:event_Cupos_ProfesionalActionPerformed
 
     private void Cargar_EstadisticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cargar_EstadisticaActionPerformed
-        // TODO add your handling code here:
+        C_Estad ce = new C_Estad();
+        
+        ce.setVisible(true);
+        ce.setLocationRelativeTo(null);
     }//GEN-LAST:event_Cargar_EstadisticaActionPerformed
 
     private void Crear_Ficha2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Crear_Ficha2ActionPerformed
@@ -146,15 +164,36 @@ public class Menu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_Cargar_FichaActionPerformed
 
+    private void Borrar_FichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Borrar_FichaActionPerformed
+        Borrar_Fichas bf = new Borrar_Fichas();
+        
+        bf.setVisible(true);
+        bf.setLocationRelativeTo(null);
+    }//GEN-LAST:event_Borrar_FichaActionPerformed
+
+    private void CG_EstadisticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CG_EstadisticaActionPerformed
+        Crear_Estadistica cge = new Crear_Estadistica();
+        
+        cge.setVisible(true);
+        cge.setLocationRelativeTo(null);
+    }//GEN-LAST:event_CG_EstadisticaActionPerformed
+
+    private void Buscar_CoberturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_CoberturaActionPerformed
+       B_Cobertura bc = new B_Cobertura();
+        
+        bc.setVisible(true);
+        bc.setLocationRelativeTo(null);
+    }//GEN-LAST:event_Buscar_CoberturaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Borrar_Ficha;
     private javax.swing.JButton Buscar_Cobertura;
+    private javax.swing.JButton CG_Estadistica;
     private javax.swing.JButton Cargar_Estadistica;
     private javax.swing.JButton Cargar_Ficha;
     private javax.swing.JButton Crear_Ficha2;
     private javax.swing.JButton Cupos_Profesional;
-    private javax.swing.JButton Listar_Por_Fecha;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,12 +14,14 @@ import spi_tp3_pabloaguilar.Servicio.Estadistica_S;
 import spi_tp3_pabloaguilar.Servicio.Ficha_S;
 
 public class Mostrar_Fichas extends javax.swing.JFrame {
+    
     Fichas f = new Fichas();
     Estadistica e = new Estadistica();
     Profesional p = new Profesional();
     Ficha_S fs = new Ficha_S();
     Estadistica_S es = new Estadistica_S();
     Connection conn = Conector_JBDC.conectar();
+    
     public Mostrar_Fichas() {
         initComponents();
     }
@@ -35,6 +37,7 @@ public class Mostrar_Fichas extends javax.swing.JFrame {
         Salir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         list2 = new java.awt.List();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,7 +52,7 @@ public class Mostrar_Fichas extends javax.swing.JFrame {
 
         fecha2.setText("aaaa-mm-dd");
 
-        jLabel1.setText("Escribir 2 fechas");
+        jLabel1.setText("Desde");
 
         Salir.setText("Salir");
         Salir.addActionListener(new java.awt.event.ActionListener() {
@@ -66,6 +69,8 @@ public class Mostrar_Fichas extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Hasta");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,13 +82,17 @@ public class Mostrar_Fichas extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 430, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(Salir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Cargar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(fecha2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fecha1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(Salir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Cargar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(fecha2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(fecha1, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel3))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(list2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -92,13 +101,15 @@ public class Mostrar_Fichas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
+                        .addGap(45, 45, 45)
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addComponent(Cargar)
                         .addGap(31, 31, 31)
                         .addComponent(Salir)
@@ -120,7 +131,7 @@ public class Mostrar_Fichas extends javax.swing.JFrame {
         
         String sql = "SELECT * FROM ficha WHERE Fecha_Consulta BETWEEN '"+f1+" 00:00:00' AND '"+f2+" 23:59:59'";
         
-        fs.llamar(sql);
+        llamar(sql);
         
     } catch (Exception ex) {
         System.out.println("Error 003: " + ex.getMessage());
@@ -163,6 +174,7 @@ public void llamar(String i){
             String s = "ID: "+id+", Profesional a cargo: "+pro+", Paciente: "+per+", DNI: "+dni+", Cobertura: "+cob+", Diagnostico: "+diag+", Estado de Consulta: "+cons+", Motivo de Consulta: "+mcons+", Observaciones: "+obs+", Estado: "+est+", Fecha de la Consulta: "+date;
 
             list2.add(s);
+            list2.add("");
             
             System.out.println("");
         }
@@ -182,6 +194,7 @@ public void llamar(String i){
     private javax.swing.JTextField fecha2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private java.awt.List list2;
     // End of variables declaration//GEN-END:variables
 }

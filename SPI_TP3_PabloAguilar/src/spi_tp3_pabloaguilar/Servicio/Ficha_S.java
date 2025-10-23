@@ -1,5 +1,6 @@
 package spi_tp3_pabloaguilar.Servicio;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import spi_tp3_pabloaguilar.Entidades.Profesional;
@@ -8,8 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import org.json.JSONObject;
 import spi_tp3_pabloaguilar.Conector_JBDC;
 import spi_tp3_pabloaguilar.Entidades.Estadistica;
@@ -93,84 +92,6 @@ public boolean Buscar_Ficha(int Ficha_ID) {
     } catch (Exception ex) {
         System.out.println("Error 003: " + ex.getMessage());
         return false;
-    }
-}
-
-public void Borrar_Ficha(int Ficha_ID) {
-    try {
-        String sql = "DELETE FROM ficha WHERE Ficha_ID = ?";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setInt(1, Ficha_ID);
-        
-        String sql2 = "UPDATE profesional SET cupos_disponibles = cupos_disponibles + 1 WHERE nombre_profesional IN (SELECT nombre_profesional FROM ficha WHERE Ficha_ID = ?)";
-        PreparedStatement ps2 = conn.prepareStatement(sql2);
-        ps2.setInt(1, Ficha_ID);
-
-        ps2.executeUpdate();
-        
-        int i = ps.executeUpdate();
-        
-        if(i>0){
-            System.out.println("Ficha Borrada");
-        }else{
-            System.out.println("Ficha no encontrada");
-        }
-        
-    } catch (Exception ex) {
-        System.out.println("Error 004: " + ex.getMessage());
-    }
-}
-
-public void Listar_Ficha(int Menor, int Mayor) {
-    try {
-        
-        String sql = "SELECT * FROM ficha WHERE Ficha_ID BETWEEN "+Menor+" AND "+Mayor;
-        
-        llamar(sql);
-
-    } catch (Exception ex) {
-        System.out.println("Error 003: " + ex.getMessage());
-    }
-}
-
-public void llamar(String i){
-    try{
-        String sql = "";
-        sql = i;
-
-        PreparedStatement ps = conn.prepareStatement(sql); 
-        ResultSet rs = ps.executeQuery();
-        
-        System.out.println("Lista de Fichas");
-        List<String> show = new ArrayList();
-        System.out.println("");
-        
-        while(rs.next()){
-            int id = rs.getInt("Ficha_ID");
-            String pro = rs.getString("Profesional");
-            String per = rs.getString("Nombre_Paciente");
-            long dni = rs.getLong("DNI_Paciente");
-            boolean cob = rs.getBoolean("Cobertura");
-            String diag = rs.getString("Diagnostico");
-            String mcons = rs.getString("Motivo_Consulta");
-            boolean cons = rs.getBoolean("Consulta");
-            String obs = rs.getString("Observacion");
-            boolean est = rs.getBoolean("Estado");
-            LocalDateTime date = rs.getTimestamp("Fecha_Consulta").toLocalDateTime();
-            
-            show.add("ID: "+id+", Profesional a cargo: "+pro+", Paciente: "+per+", DNI: "+dni+", Cobertura: "+cob+", Diagnostico: "+diag+", Estado de Consulta: "+cons+", Motivo de Consulta: "+mcons+", Observaciones: "+obs+", Estado: "+est+", Fecha de la Consulta: "+date);
-        }
-        
-        for (String s : show) {
-            System.out.println(s);
-            System.out.println("");
-        }
-        
-        rs.close();
-        ps.close();
-
-    } catch (Exception ex) {
-        System.out.println("Error 004: " + ex.getMessage());
     }
 }
 
@@ -266,7 +187,18 @@ public void Guardado_Local(Fichas f){
             j.put("Sigue_con_Consulta",f.isConsulta());
             j.put("Fecha_De_Consulta",f.getDate());
             
-        try(FileWriter file = new FileWriter(e.getDia()+"_"+f.getFicha_ID()+"_Ficha.json")){
+        String carpeta = "Fichas";
+        File directorio = new File(carpeta);
+        
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()){
+                directorio.getAbsolutePath();
+            } else {
+                return;
+            }
+        }
+            
+        try(FileWriter file = new FileWriter(carpeta+File.separator+e.getDia()+"_"+f.getFicha_ID()+"_Ficha.json")){
                file.write(j.toString());
         }catch(IOException ex){
             System.out.println("Error en al guardar el JSON");

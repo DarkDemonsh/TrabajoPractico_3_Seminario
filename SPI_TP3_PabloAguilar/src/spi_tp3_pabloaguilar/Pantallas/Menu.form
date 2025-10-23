@@ -30,23 +30,16 @@
                   <Component id="Borrar_Ficha" alignment="0" max="32767" attributes="0"/>
                   <Component id="Cargar_Ficha" alignment="0" pref="105" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="37" max="32767" attributes="0"/>
+              <EmptySpace pref="35" max="32767" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="50" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="Buscar_Cobertura" max="32767" attributes="0"/>
-                          <Component id="Cargar_Estadistica" alignment="0" max="32767" attributes="0"/>
-                          <Component id="Listar_Por_Fecha" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="Cupos_Profesional" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="Cargar_Estadistica" max="32767" attributes="0"/>
+                  <Component id="CG_Estadistica" alignment="1" pref="186" max="32767" attributes="0"/>
+                  <Component id="Buscar_Cobertura" alignment="0" pref="186" max="32767" attributes="0"/>
+                  <Component id="Cupos_Profesional" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <EmptySpace pref="22" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -66,18 +59,19 @@
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="Borrar_Ficha" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                      <Component id="Listar_Por_Fecha" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Cargar_Estadistica" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="Buscar_Cobertura" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="Cupos_Profesional" min="-2" max="-2" attributes="0"/>
-                  </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+              <Component id="CG_Estadistica" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="Cargar_Estadistica" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <Component id="Buscar_Cobertura" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="Cupos_Profesional" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -103,6 +97,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Borrar Ficha"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Borrar_FichaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Cargar_Estadistica">
       <Properties>
@@ -116,6 +113,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Buscar por Cobertura"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Buscar_CoberturaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Cupos_Profesional">
       <Properties>
@@ -125,10 +125,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Cupos_ProfesionalActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="Listar_Por_Fecha">
+    <Component class="javax.swing.JButton" name="CG_Estadistica">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Crear Estadistica"/>
+        <Property name="text" type="java.lang.String" value="Crear y Guardar Estadistica"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CG_EstadisticaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
       <Properties>
