@@ -7,6 +7,7 @@ import spi_tp3_pabloaguilar.Entidades.Fichas;
 import spi_tp3_pabloaguilar.Servicio.Estadistica_S;
 import spi_tp3_pabloaguilar.Servicio.Ficha_S;
 import spi_tp3_pabloaguilar.Entidades.Profesional;
+import spi_tp3_pabloaguilar.Pantallas.Menu;
 
 public class SPI_TP3_PabloAguilar {
 
@@ -26,10 +27,13 @@ public class SPI_TP3_PabloAguilar {
     Ficha_S fs = new Ficha_S();
     Estadistica_S es = new Estadistica_S();
   
+    Menu m = new Menu();
+    m.setVisible(true);
+    m.setLocationRelativeTo(null);
+    
 try{   
 do{
     System.out.println("");
-    System.out.println("1- Agregar Ficha");
     System.out.println("2- Borrar Ficha");
     System.out.println("3- Mostrar Fichas");
     System.out.println("4- Listar Fichas por Fechas");
@@ -41,10 +45,7 @@ do{
     
     int i = leer.nextInt();
     
-    switch(i){
-        case 1: 
-            fs.Agregar_Ficha(f, e, p);
-            break;   
+    switch(i){  
         case 2: 
             System.out.println("Ficha a Borrar");
             int b = leer.nextInt();

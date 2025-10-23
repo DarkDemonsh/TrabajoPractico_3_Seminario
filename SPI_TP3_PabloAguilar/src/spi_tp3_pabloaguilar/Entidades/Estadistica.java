@@ -1,7 +1,6 @@
 package spi_tp3_pabloaguilar.Entidades;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class Estadistica {
    
@@ -24,6 +23,7 @@ public class Estadistica {
         this.Estadistica_ID = Estadistica_ID;
         this.dia = hoy;
     }
+    
 
     public int getPacientes_Atendidos() {
         return Pacientes_Atendidos;
@@ -72,5 +72,5 @@ public class Estadistica {
     public void setDia(LocalDate dia) {
         this.dia = dia;
     }
-  
+
 }
