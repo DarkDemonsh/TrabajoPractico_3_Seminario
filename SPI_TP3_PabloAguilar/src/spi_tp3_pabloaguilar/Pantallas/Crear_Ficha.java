@@ -16,6 +16,8 @@ public class Crear_Ficha extends javax.swing.JFrame {
     Ficha_S fs = new Ficha_S();
     Estadistica_S es = new Estadistica_S();
     Connection conn = Conector_JBDC.conectar();
+    
+    String prof, n_pac, dni1;
   
     public Crear_Ficha() {
         initComponents();
@@ -44,6 +46,7 @@ public class Crear_Ficha extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         Guardar = new javax.swing.JButton();
         Salir = new javax.swing.JButton();
+        list1 = new java.awt.List();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -188,13 +191,15 @@ public class Crear_Ficha extends javax.swing.JFrame {
                         .addGap(17, 17, 17))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(Guardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Salir))))
+                        .addGap(18, 18, 18)
+                        .addComponent(Salir)
+                        .addContainerGap())))
+            .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel6))
@@ -207,7 +212,7 @@ public class Crear_Ficha extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(N_Paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
@@ -221,21 +226,28 @@ public class Crear_Ficha extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
                         .addComponent(M_Consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Observacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(estado)
-                            .addComponent(consulta)
-                            .addComponent(cobertura))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Guardar)
-                            .addComponent(Salir)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Observacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(13, 13, 13)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(estado)
+                                    .addComponent(consulta)
+                                    .addComponent(cobertura))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Salir)
+                                    .addComponent(Guardar))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -277,7 +289,7 @@ public class Crear_Ficha extends javax.swing.JFrame {
          f.setCobertura(false);   
         }
     }catch(Exception ex){
-        System.out.println(ex.getCause());
+        list1.add("ERROR 001: "+ex.getMessage());
     }
     }//GEN-LAST:event_coberturaActionPerformed
 
@@ -289,7 +301,7 @@ public class Crear_Ficha extends javax.swing.JFrame {
          f.setConsulta(false);   
         }
     }catch(Exception ex){
-        System.out.println(ex.getCause());
+        list1.add("ERROR 002: "+ex.getMessage());
     }
     }//GEN-LAST:event_consultaActionPerformed
 
@@ -301,16 +313,17 @@ public class Crear_Ficha extends javax.swing.JFrame {
          f.setEstado(0);   
         }
     }catch(Exception ex){
-        System.out.println(ex.getCause());
+        list1.add("ERROR 003: "+ex.getMessage());
     }
     }//GEN-LAST:event_estadoActionPerformed
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
-    /*Nombre Profesional*/
-    try{
-        System.out.println("Escribir el nombre del Profesional");
-        f.setProfesional(N_Profesional.getText());
-    
+/*Nombre Profesional*/
+    try{   
+        prof = N_Profesional.getText();
+        
+        f.setProfesional(prof);
+        
     if(fs.Prof_name(f.getProfesional()) == false){
     if(fs.Prof_cupo(f.getProfesional())== true){
     p.setNombre_profesional(f.getProfesional());
@@ -330,56 +343,63 @@ public class Crear_Ficha extends javax.swing.JFrame {
         fs.Update_Prof(f.getProfesional());
     }
     }catch(Exception ex){
-        System.out.println(ex.getCause());
+        list1.add("ERROR 004: "+ex.getMessage());
     }
     /*Nombre Paciente*/
     try{  
-       String n_pac = N_Paciente.getText();  
+        
+       n_pac = N_Paciente.getText(); 
        f.setPaciente(n_pac);
+       
     }catch(Exception ex){
-        System.out.println(ex.getCause());
+        list1.add("ERROR 004: "+ex.getMessage());
     }
     /*DNI*/
     try{   
-        String dni1 = DNI_Paciente.getText();
+        dni1 = DNI_Paciente.getText();
         long dni = Long.parseLong(dni1);
         f.setDNI_Paciente(dni);
+        
     }catch(Exception ex){
-        System.out.println(ex.getCause());
+        list1.add("ERROR 004: "+ex.getMessage());
     }
     /*Localidad*/
     try{    
         String local = Localidad.getText();
         f.setLocalidad(local);
     }catch(Exception ex){
-        System.out.println(ex.getCause());
+        list1.add("ERROR 004: "+ex.getMessage());
     }
     /*Consulta*/
     try{
         String cons = M_Consulta.getText();
         f.setMotivo_Consulta(cons);
     }catch(Exception ex){
-        System.out.println(ex.getCause());
+        list1.add("ERROR 004: "+ex.getMessage());
     }
     /*Diagnostico*/
     try{    
         String diag = Diagnostico.getText();
         f.setDiagnostico(diag);
     }catch(Exception ex){
-        System.out.println(ex.getCause());
+        list1.add("ERROR 004: "+ex.getMessage());
     }
     /*Observacion*/
     try{
         String obs = Observacion.getText();
         f.setObservacion(obs);
     }catch(Exception ex){
-        System.out.println(ex.getCause());
+        list1.add("ERROR 004: "+ex.getMessage());
     } 
     /*Guardado*/    
-    try{    
+    try{
+        if(prof.isEmpty() || dni1.isEmpty() || n_pac.isEmpty()){
+        throw new Exception("El valor en: Nombre Profesional, Nombre Paciente y DNI Paciente no deben estar vacios"); 
+        }else{
         fs.Agregar_Ficha(f, e, p);
+        }
     }catch(Exception ex){
-        System.out.println(ex.getCause());
+        list1.add("ERROR 004: "+ex.getMessage());
     }
     }//GEN-LAST:event_GuardarActionPerformed
 
@@ -407,5 +427,6 @@ public class Crear_Ficha extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private java.awt.List list1;
     // End of variables declaration//GEN-END:variables
 }

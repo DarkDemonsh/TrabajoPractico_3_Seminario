@@ -42,6 +42,7 @@ public class Crear_Estadistica extends javax.swing.JFrame {
         Salir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        list1 = new java.awt.List();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,21 +72,23 @@ public class Crear_Estadistica extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(Crear_Guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(fecha2)
-                            .addComponent(fecha1)
-                            .addComponent(Salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(64, 64, 64)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(62, 62, 62)
-                        .addComponent(jLabel2)))
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Crear_Guardar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(fecha2, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                                .addComponent(fecha1))
+                            .addComponent(Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,11 +102,13 @@ public class Crear_Estadistica extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(5, 5, 5)
                 .addComponent(fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addGap(51, 51, 51)
                 .addComponent(Crear_Guardar)
                 .addGap(18, 18, 18)
                 .addComponent(Salir)
-                .addGap(28, 28, 28))
+                .addGap(24, 24, 24)
+                .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -225,7 +230,7 @@ public class Crear_Estadistica extends javax.swing.JFrame {
         try(FileWriter file = new FileWriter(carpeta+File.separator+e.getDia()+"_"+e.getEstadistica_ID()+"_Estadistica.json")){
                file.write(j.toString());
         }catch(IOException ex){
-            System.out.println("Error en CrearSave"+ex.getMessage());
+            list1.add("ERROR 009: "+ex.getMessage());
         }
         
         ps4.executeUpdate();
@@ -240,7 +245,7 @@ public class Crear_Estadistica extends javax.swing.JFrame {
         ps.close();
                
     }catch (Exception ex) {
-        System.out.println("Error 015: " + ex.getMessage());
+        list1.add("ERROR 010: "+ex.getMessage());
     } 
     }//GEN-LAST:event_Crear_GuardarActionPerformed
 
@@ -255,5 +260,6 @@ public class Crear_Estadistica extends javax.swing.JFrame {
     private javax.swing.JTextField fecha2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private java.awt.List list1;
     // End of variables declaration//GEN-END:variables
 }

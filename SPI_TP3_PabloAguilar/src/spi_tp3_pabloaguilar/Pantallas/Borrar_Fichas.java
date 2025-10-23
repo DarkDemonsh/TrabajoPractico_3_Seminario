@@ -29,6 +29,7 @@ public class Borrar_Fichas extends javax.swing.JFrame {
         Borrar = new javax.swing.JButton();
         Salir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        list1 = new java.awt.List();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,6 +65,7 @@ public class Borrar_Fichas extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addComponent(jLabel1)))
                 .addContainerGap(48, Short.MAX_VALUE))
+            .addComponent(list1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -72,11 +74,13 @@ public class Borrar_Fichas extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(34, 34, 34)
                 .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
                 .addComponent(Borrar)
                 .addGap(42, 42, 42)
                 .addComponent(Salir)
-                .addGap(33, 33, 33))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -108,7 +112,7 @@ public class Borrar_Fichas extends javax.swing.JFrame {
         }
         
     } catch (Exception ex) {
-        System.out.println("Error 004: " + ex.getMessage());
+        list1.add("ERROR 013: "+ex.getMessage());
     }
     }//GEN-LAST:event_BorrarActionPerformed
 
@@ -117,5 +121,6 @@ public class Borrar_Fichas extends javax.swing.JFrame {
     private javax.swing.JTextField ID;
     private javax.swing.JButton Salir;
     private javax.swing.JLabel jLabel1;
+    private java.awt.List list1;
     // End of variables declaration//GEN-END:variables
 }
