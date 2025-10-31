@@ -94,7 +94,7 @@ public class B_Cobertura extends javax.swing.JFrame {
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
     boolean co;
     
-      if(cober.hasFocus()){
+      if(cober.isSelected()){
          co = (true);   
       }else{
          co = (false);   

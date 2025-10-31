@@ -322,78 +322,60 @@ public class Crear_Ficha extends javax.swing.JFrame {
     try{   
         prof = N_Profesional.getText();
         
+        if(prof.isEmpty() && dni1.isEmpty() && n_pac.isEmpty()){
+        throw new Exception("El valor en: Nombre Profesional, Nombre Paciente y DNI Paciente no deben estar vacios"); 
+        }
+        
         f.setProfesional(prof);
         
-    if(fs.Prof_name(f.getProfesional()) == false){
-    if(fs.Prof_cupo(f.getProfesional())== true){
-    p.setNombre_profesional(f.getProfesional());
-    p.setCupos_Disponibles(p.getCupos_Disponibles()-1);
-    }else{
-        System.out.println("El profesional no tiene cupos disponibles");
+if(fs.Prof_name(f.getProfesional()) == false) {
+    if(!fs.Prof_cupo(f.getProfesional())) {
+        throw new Exception("El profesional no tiene cupos disponibles");
     }
-    
-    String sql2 = ("INSERT INTO profesional (Nombre_Profesional, Cupos_Disponibles) VALUES (?, 6)");
+
+    p.setNombre_profesional(f.getProfesional());
+    p.setCupos_Disponibles(6);
+    String sql2 = "INSERT INTO profesional (Nombre_Profesional, Cupos_Disponibles) VALUES (?, ?)";
     PreparedStatement ps2 = conn.prepareStatement(sql2);
     ps2.setString(1, p.getNombre_profesional());
-        
+    ps2.setInt(2, p.getCupos_Disponibles());
     ps2.executeUpdate();
     ps2.close();
-    
-    }else{
-        fs.Update_Prof(f.getProfesional());
+
+} else {
+
+    if(!fs.Prof_cupo(f.getProfesional())) {
+        throw new Exception("El profesional no tiene cupos disponibles");
     }
-    }catch(Exception ex){
-        list1.add("ERROR 004: "+ex.getMessage());
-    }
-    /*Nombre Paciente*/
-    try{  
-        
+
+    fs.Update_Prof(f.getProfesional());
+}
+
+    /*Nombre Paciente*/     
        n_pac = N_Paciente.getText(); 
        f.setPaciente(n_pac);
        
-    }catch(Exception ex){
-        list1.add("ERROR 004: "+ex.getMessage());
-    }
-    /*DNI*/
-    try{   
+    /*DNI*/ 
         dni1 = DNI_Paciente.getText();
         long dni = Long.parseLong(dni1);
         f.setDNI_Paciente(dni);
-        
-    }catch(Exception ex){
-        list1.add("ERROR 004: "+ex.getMessage());
-    }
-    /*Localidad*/
-    try{    
+
+    /*Localidad*/   
         String local = Localidad.getText();
         f.setLocalidad(local);
-    }catch(Exception ex){
-        list1.add("ERROR 004: "+ex.getMessage());
-    }
+
     /*Consulta*/
-    try{
         String cons = M_Consulta.getText();
         f.setMotivo_Consulta(cons);
-    }catch(Exception ex){
-        list1.add("ERROR 004: "+ex.getMessage());
-    }
-    /*Diagnostico*/
-    try{    
+
+    /*Diagnostico*/   
         String diag = Diagnostico.getText();
         f.setDiagnostico(diag);
-    }catch(Exception ex){
-        list1.add("ERROR 004: "+ex.getMessage());
-    }
     /*Observacion*/
-    try{
         String obs = Observacion.getText();
         f.setObservacion(obs);
-    }catch(Exception ex){
-        list1.add("ERROR 004: "+ex.getMessage());
-    } 
     /*Guardado*/    
-    try{
-        if(prof.isEmpty() || dni1.isEmpty() || n_pac.isEmpty()){
+        if(prof.isEmpty() && dni1.isEmpty() && n_pac.isEmpty()){
         throw new Exception("El valor en: Nombre Profesional, Nombre Paciente y DNI Paciente no deben estar vacios"); 
         }else{
         fs.Agregar_Ficha(f, e, p);

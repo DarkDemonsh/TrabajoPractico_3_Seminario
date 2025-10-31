@@ -98,7 +98,7 @@ public class Borrar_Fichas extends javax.swing.JFrame {
         String sql = "DELETE FROM ficha WHERE Ficha_ID = "+ID_Ficha;
         PreparedStatement ps = conn.prepareStatement(sql);
         
-        String sql2 = "UPDATE profesional SET cupos_disponibles = cupos_disponibles + 1 WHERE nombre_profesional IN (SELECT nombre_profesional FROM ficha WHERE Ficha_ID = "+ID_Ficha+")";
+        String sql2 = "UPDATE profesional SET cupos_disponibles = cupos_disponibles + 1 WHERE nombre_profesional IN (SELECT profesional FROM ficha WHERE Ficha_ID = "+ID_Ficha+")";
         PreparedStatement ps2 = conn.prepareStatement(sql2);
 
         ps2.executeUpdate();
